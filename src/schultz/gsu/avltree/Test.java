@@ -53,22 +53,16 @@ public class Test {
 		BinaryTreeNode<Integer> twentyFive = new BinaryTreeNode<Integer>(25);
 		BinaryTreeNode<Integer> thirtyFour = new BinaryTreeNode<Integer>(34);
 		
-		BinaryTreeNode<Integer> fifty = new BinaryTreeNode<Integer>(50);
-		
 		root.setLeftChild(five);
 		root.setRightChild(twentyFive);
 		
 		twentyFive.setRightChild(thirtyFour);
 		
-		thirtyFour.setRightChild(fifty);
-		
 		AVLTree<Integer> tree = new AVLTree<Integer>(root);
 		
-		System.out.println(tree.balanceFactor(thirtyFour));
+		tree.insert(50, root);
 		
-		//tree.insert(50, root);
-		
-		//tree.inOrder(root);
+		tree.inOrder(root);
 	}
 	
 	public static void main(String[] args) {
