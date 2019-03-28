@@ -58,15 +58,33 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> {
 		super.setRoot(B);
 	}
 	
-	private void balanceLR(BinaryTreeNode<T> y) {
+	private void balanceLR(BinaryTreeNode<T> A) {
+		BinaryTreeNode<T> B = A.getLeftChild();
+		BinaryTreeNode<T> C = B.getRightChild();
 		
+		B.setRightChild(C.getLeftChild());
+		A.setLeftChild(C.getRightChild());
+		
+		C.setLeftChild(B);
+		C.setRightChild(A);
+		
+		C.setParent(null);
+		
+		super.setRoot(C);
 	}
 	
-	private void balanceRR(BinaryTreeNode<T> y) {
+	private void balanceRR(BinaryTreeNode<T> A) {
+		BinaryTreeNode<T> B = A.getRightChild();
 		
+		A.setRightChild(B.getLeftChild());
+		B.setLeftChild(A);
+		
+		B.setParent(null);
+		
+		super.setRoot(B);
 	}
 	
-	private void balanceRL(BinaryTreeNode<T> y) {
+	private void balanceRL(BinaryTreeNode<T> A) {
 		
 	}
 	
