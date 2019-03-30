@@ -50,45 +50,112 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> {
 	private void balanceLL(BinaryTreeNode<T> A) {
 		BinaryTreeNode<T> B = A.getLeftChild();
 		
-		A.setLeftChild(B.getRightChild());
+		if(super.isRoot(A))
+			super.setRoot(B);
+		
+		else {
+			if(A.getParent().getLeftChild() == A)
+				A.getParent().setLeftChild(B);
+			
+			else
+				A.getParent().setRightChild(B);
+		}
+		
+		if(B.getRightChild() == null)
+			A.setNullLeftChild();
+		
+		else
+			A.setLeftChild(B.getRightChild());
+	
 		B.setRightChild(A);
-		
-		B.setParent(null);
-		
-		super.setRoot(B);
 	}
 	
 	private void balanceLR(BinaryTreeNode<T> A) {
 		BinaryTreeNode<T> B = A.getLeftChild();
 		BinaryTreeNode<T> C = B.getRightChild();
 		
-		B.setRightChild(C.getLeftChild());
-		A.setLeftChild(C.getRightChild());
+		if(super.isRoot(A))
+			super.setRoot(C);
+		
+		else {
+			if(A.getParent().getLeftChild() == A)
+				A.getParent().setLeftChild(C);
+			
+			else
+				A.getParent().setRightChild(C);
+		}
+		
+		if(C.getLeftChild() == null)
+			B.setNullRightChild();
+		
+		else
+			B.setRightChild(C.getLeftChild());
+		
+		if(C.getRightChild() == null)
+			A.setNullLeftChild();
+		
+		else
+			A.setLeftChild(C.getRightChild());
 		
 		C.setLeftChild(B);
 		C.setRightChild(A);
-		
-		C.setParent(null);
-		
-		super.setRoot(C);
 	}
 	
 	private void balanceRR(BinaryTreeNode<T> A) {
 		BinaryTreeNode<T> B = A.getRightChild();
 		
-		A.setRightChild(B.getLeftChild());
+		if(super.isRoot(A))
+			super.setRoot(B);
+		
+		else {
+			if(A.getParent().getLeftChild() == A)
+				A.getParent().setLeftChild(B);
+			
+			else
+				A.getParent().setRightChild(B);
+		}
+		
+		if(B.getLeftChild() == null)
+			A.setNullRightChild();
+		else
+			A.setRightChild(B.getLeftChild());
+		
 		B.setLeftChild(A);
-		
-		B.setParent(null);
-		
-		super.setRoot(B);
 	}
 	
 	private void balanceRL(BinaryTreeNode<T> A) {
+		BinaryTreeNode<T> B = A.getRightChild();
+		BinaryTreeNode<T> C = B.getLeftChild();
 		
+		if(super.isRoot(A))
+			super.setRoot(C);
+		
+		
+		else {
+			if(A.getParent().getLeftChild() == A)
+				A.getParent().setLeftChild(C);
+			
+			else
+				A.getParent().setRightChild(C);
+		}
+		
+		if(C.getLeftChild() == null)
+			A.setNullRightChild();
+		
+		else
+			A.setRightChild(C.getLeftChild());
+		
+		if(C.getRightChild() == null)
+			B.setNullLeftChild();
+		
+		else
+			B.setLeftChild(C.getRightChild());
+		
+		C.setLeftChild(A);
+		C.setRightChild(B);
 	}
 	
 	public int balanceFactor(BinaryTreeNode<T> node) {
-		return super.height(node.getRightChild()) - super.height(node.getLeftChild());
+		return super.nodeHeight(node.getRightChild()) - super.nodeHeight(node.getLeftChild());
 	}
 }

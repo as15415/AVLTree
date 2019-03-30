@@ -4,22 +4,19 @@ import schultz.gsu.binarytree.BinaryTreeNode;
 
 public class Test {
 	
+	/*
+	 * All the tests use the trees in the textbook, pages 1000-1001.
+	 */
+	
 	public static void testBalanceLL() {
-		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(7);
-		BinaryTreeNode<Integer> four = new BinaryTreeNode<Integer>(4);
-		BinaryTreeNode<Integer> eight = new BinaryTreeNode<Integer>(8);
-		BinaryTreeNode<Integer> three = new BinaryTreeNode<Integer>(3);
-		BinaryTreeNode<Integer> five = new BinaryTreeNode<Integer>(5);
+		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(25);
+		BinaryTreeNode<Integer> twenty = new BinaryTreeNode<Integer>(20);
 		
-		root.setLeftChild(four);
-		root.setRightChild(eight);
-		
-		four.setLeftChild(three);
-		four.setRightChild(five);
+		root.setLeftChild(twenty);
 		
 		AVLTree<Integer> tree = new AVLTree<Integer>(root);
 		
-		tree.insert(2, root);
+		tree.insert(5, root);
 		
 		tree.inOrder(tree.getRoot());
 	}
@@ -44,7 +41,7 @@ public class Test {
 		
 		tree.insert(10, root);
 		
-		tree.inOrder(root);
+		tree.inOrder(tree.getRoot());
 	}
 	
 	public static void testBalanceRR() {
@@ -62,13 +59,34 @@ public class Test {
 		
 		tree.insert(50, root);
 		
-		tree.inOrder(root);
+		tree.inOrder(tree.getRoot());
+	}
+	
+	public static void testBalanceRL() {
+		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(20);
+		BinaryTreeNode<Integer> five = new BinaryTreeNode<Integer>(5);
+		BinaryTreeNode<Integer> thirtyFour = new BinaryTreeNode<Integer>(34);
+		BinaryTreeNode<Integer> twentyFive = new BinaryTreeNode<Integer>(25);
+		BinaryTreeNode<Integer> fifty = new BinaryTreeNode<Integer>(50);
+		
+		root.setLeftChild(five);
+		root.setRightChild(thirtyFour);
+		
+		thirtyFour.setLeftChild(twentyFive);
+		thirtyFour.setRightChild(fifty);
+		
+		AVLTree<Integer> tree = new AVLTree<Integer>(root);
+		
+		tree.insert(30, root);
+		
+		tree.inOrder(tree.getRoot());
 	}
 	
 	public static void main(String[] args) {
 		//testBalanceLL();
 		//testBalanceLR();
-		testBalanceRR();
+		//testBalanceRR();
+		testBalanceRL();
 	}
 
 }
