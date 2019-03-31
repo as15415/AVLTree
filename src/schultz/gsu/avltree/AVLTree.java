@@ -18,8 +18,50 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> {
 		return insertedNode;
 	}
 	
+	@Override
 	public void delete(T key, BinaryTreeNode<T> node) {
-		super.delete(key, node);
+		BinaryTreeNode<T> toDelete = search(key, node);
+		
+		if(toDelete.getLeftChild() == null) { // Case 1
+			// find out how to connect the parent: as its left subtree or right?
+			if(toDelete.getParent().getLeftChild() == toDelete) {
+				if(super.isExternal(toDelete))
+					toDelete.getParent().setNullLeftChild();
+				else
+					toDelete.getParent().setLeftChild(toDelete.getRightChild());
+			}
+			
+			else {
+				if(super.isExternal(toDelete))
+					toDelete.getParent().setNullRightChild();
+				else
+					toDelete.getParent().setRightChild(toDelete.getRightChild());
+			}
+			
+			balance(toDelete.getParent());
+		}
+		
+		else { // Case 2
+			BinaryTreeNode<T> rightMost = super.getRightMost(toDelete.getLeftChild());
+			
+			if(rightMost == toDelete.getLeftChild()) {
+				toDelete.setElement(rightMost.getElement());
+				
+				if(rightMost.getLeftChild() == null)
+					toDelete.setNullLeftChild();
+				
+				else
+					toDelete.setLeftChild(rightMost.getLeftChild());
+			}
+		
+			else {
+				toDelete.setElement(rightMost.getElement());
+				rightMost.getParent().setRightChild(rightMost.getLeftChild());
+			}
+			
+			balance(rightMost.getParent());
+		}
+		
 	}
 	
 	private void balance(BinaryTreeNode<T> node) {
@@ -43,7 +85,7 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> {
 			}
 		}
 		
-		else if(node.getParent() != null)
+		if(node.getParent() != null)
 			balance(node.getParent());
 	}
 	

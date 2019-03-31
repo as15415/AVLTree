@@ -16,7 +16,7 @@ public class Test {
 		
 		AVLTree<Integer> tree = new AVLTree<Integer>(root);
 		
-		tree.insert(5, root);
+		tree.insert(5, tree.getRoot());
 		
 		tree.inOrder(tree.getRoot());
 	}
@@ -39,7 +39,7 @@ public class Test {
 		
 		AVLTree<Integer> tree = new AVLTree<Integer>(root);
 		
-		tree.insert(10, root);
+		tree.insert(10, tree.getRoot());
 		
 		tree.inOrder(tree.getRoot());
 	}
@@ -57,7 +57,7 @@ public class Test {
 		
 		AVLTree<Integer> tree = new AVLTree<Integer>(root);
 		
-		tree.insert(50, root);
+		tree.insert(50, tree.getRoot());
 		
 		tree.inOrder(tree.getRoot());
 	}
@@ -77,7 +77,41 @@ public class Test {
 		
 		AVLTree<Integer> tree = new AVLTree<Integer>(root);
 		
-		tree.insert(30, root);
+		tree.insert(30, tree.getRoot());
+		
+		tree.inOrder(tree.getRoot());
+	}
+	
+	public static void testDeletion() {
+		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(25);
+		BinaryTreeNode<Integer> ten = new BinaryTreeNode<Integer>(10);
+		BinaryTreeNode<Integer> thirtyFour = new BinaryTreeNode<Integer>(34);
+		BinaryTreeNode<Integer> five = new BinaryTreeNode<Integer>(5);
+		BinaryTreeNode<Integer> twenty = new BinaryTreeNode<Integer>(20);
+		BinaryTreeNode<Integer> thirty = new BinaryTreeNode<Integer>(30);
+		BinaryTreeNode<Integer> fifty = new BinaryTreeNode<Integer>(50);
+		
+		root.setLeftChild(ten);
+		root.setRightChild(thirtyFour);
+		
+		ten.setLeftChild(five);
+		ten.setRightChild(twenty);
+		
+		thirtyFour.setLeftChild(thirty);
+		thirtyFour.setRightChild(fifty);
+		
+		AVLTree<Integer> tree = new AVLTree<Integer>(root);
+		
+		tree.delete(34, tree.getRoot());
+		tree.delete(30, tree.getRoot());
+		tree.delete(50, tree.getRoot());
+		
+		tree.inOrder(tree.getRoot());
+		
+		System.out.println();
+		System.out.println();
+		
+		tree.delete(5, tree.getRoot());
 		
 		tree.inOrder(tree.getRoot());
 	}
@@ -86,7 +120,8 @@ public class Test {
 		//testBalanceLL();
 		//testBalanceLR();
 		//testBalanceRR();
-		testBalanceRL();
+		//testBalanceRL();
+		testDeletion();
 	}
 
 }
